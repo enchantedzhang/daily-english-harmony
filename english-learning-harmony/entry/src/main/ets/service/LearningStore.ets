@@ -2,7 +2,7 @@ import { common } from '@kit.AbilityKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
 import { util } from '@kit.ArkTS';
 import { LearningSettings, LearningState, LegacyHistory, WordItem, dateKey, defaultSettings,
-  importLegacy, mergeBackup, planLessons, validateState, validWord, allowedWord } from '../model/LearningCore';
+  importLegacy, mergeBackup, planLessons, validateState, validWord, allowedWord, enrichLessons } from '../model/LearningCore';
 
 export class LearningStore {
   private state: LearningState = { version: 1, reminderSyncPending: false, settings: defaultSettings(), lessons: [], customWords: [] };
@@ -50,6 +50,8 @@ export class LearningStore {
   commit(state: LearningState): void {
     if (!this.ready) { throw new Error('数据尚未加载完成'); }
     validateState(state);
+    state = JSON.parse(JSON.stringify(state)) as LearningState;
+    state.lessons = enrichLessons(state.lessons, this.bank);
     const text: string = JSON.stringify(state);
     if (text === JSON.stringify(this.state) && fileIo.accessSync(this.path)) { return; }
     this.write(`${this.path}.tmp`, text);
@@ -75,7 +77,7 @@ export class LearningStore {
   refresh(): void {
     const next: LearningState = this.snapshot();
     next.customWords = next.customWords.filter(allowedWord);
-    next.lessons = planLessons(next, this.bank, dateKey(new Date()), false);
+    next.lessons = enrichLessons(planLessons(next, this.bank, dateKey(new Date()), false), this.bank);
     if (JSON.stringify(next) !== JSON.stringify(this.state) || !fileIo.accessSync(this.path)) {
       if (next.settings.reminder) { next.reminderSyncPending = true; }
       this.commit(next);

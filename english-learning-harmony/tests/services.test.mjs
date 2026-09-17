@@ -316,6 +316,21 @@ test('file storage survives restart and creates a last-known-good backup', async
   assert.deepEqual(restarted.snapshot().lessons, h.subject.snapshot().lessons);
 });
 
+test('persisted pre-feature history is enriched on startup and exported with study notes', async t => {
+  const h = storeHarness(t);
+  const patient = { ...bank.find(w => w.word === 'patient') }; delete patient.study;
+  const old = { version: 1, reminderSyncPending: false, settings: core.defaultSettings(), customWords: [],
+    lessons: [{ ...core.emptyLesson('2026-09-10'), words: [patient], reviewed: ['patient'] }] };
+  fs.writeFileSync(path.join(h.directory, 'learning-v1.json'), JSON.stringify(old));
+  await h.subject.initialize(h.context);
+  const lesson = h.subject.snapshot().lessons.find(l => l.date === '2026-09-10');
+  assert.equal(lesson.words[0].study.examples.length, 3);
+  assert.deepEqual(Array.from(lesson.reviewed), ['patient']);
+  await h.subject.exportBackup(h.context);
+  const exported = JSON.parse(fs.readFileSync(h.controls.exportFile, 'utf8'));
+  assert.equal(exported.lessons.find(l => l.date === lesson.date).words[0].study.examples.length, 3);
+});
+
 test('storage write failure leaves memory and committed history unchanged', async t => {
   const h = storeHarness(t);
   await h.subject.initialize(h.context);

@@ -63,7 +63,7 @@ export class CalendarReminderService {
         endTime: start + 5 * 60 * 1000,
         isAllDay: false,
         reminderTime: [0],
-        description: marker + '\n' + lesson.words.map((word: WordItem) => `【${word.topic}】${word.word}：${word.meaning}`).join('\n') + '\n打开「每日英语」查看例句和发音。',
+        description: marker + '\n' + lesson.words.map((word: WordItem) => `【${word.topic}】${word.word}：${word.study?.meaning || word.meaning}`).join('\n') + '\n打开「每日英语」查看例句、构词记忆和发音。',
         identifier: `daily-english-${lesson.date}`
       };
       let id: number;

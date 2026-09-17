@@ -1,3 +1,16 @@
+export interface StudyExample { english: string; chinese: string; }
+export interface WordStudy {
+  kind: string;
+  formation: string;
+  explanation: string;
+  memory: string;
+  meaning: string;
+  phonetic: string;
+  englishMeaning: string;
+  examples: StudyExample[];
+  sources: string[];
+}
+
 export interface WordItem {
   word: string;
   phonetic: string;
@@ -7,6 +20,7 @@ export interface WordItem {
   translation: string;
   topic: string;
   source: string;
+  study?: WordStudy;
 }
 
 export interface DayLesson {
@@ -81,7 +95,27 @@ export function isWeekday(date: string): boolean {
 export function allowedText(text: string): boolean { return !/\babandon\b/i.test(text); }
 
 export function allowedWord(word: WordItem): boolean {
-  return [word.word, word.example, word.meaning, word.translation, word.source, word.topic].every(allowedText);
+  return [word.word, word.example, word.meaning, word.translation, word.source, word.topic, JSON.stringify(word.study) || ''].every(allowedText);
+}
+
+export function validStudy(study: WordStudy): boolean {
+  return !!study && [study.kind, study.formation, study.explanation, study.memory, study.meaning, study.phonetic, study.englishMeaning]
+    .every((value: string) => typeof value === 'string' && value.length <= 2000) &&
+    Array.isArray(study.examples) && study.examples.length <= 10 && study.examples.every((example: StudyExample) =>
+      !!example && typeof example.english === 'string' && typeof example.chinese === 'string' && example.english.length <= 2000 && example.chinese.length <= 2000) &&
+    Array.isArray(study.sources) && study.sources.length <= 10 && study.sources.every((source: string) => typeof source === 'string' && source.startsWith('https://'));
+}
+
+export function enrichLessons(lessons: DayLesson[], bank: WordItem[]): DayLesson[] {
+  return lessons.map((lesson: DayLesson) => {
+    const result: DayLesson = cleanLesson(lesson);
+    result.words = result.words.map((word: WordItem) => {
+      const known: WordItem | undefined = bank.find((item: WordItem) => item.word.toLowerCase() === word.word.toLowerCase() && item.study !== undefined);
+      if (known?.study) { word.study = JSON.parse(JSON.stringify(known.study)) as WordStudy; }
+      return word;
+    });
+    return result;
+  });
 }
 
 export function cleanLesson(lesson: DayLesson): DayLesson {
@@ -268,7 +302,8 @@ export function validateState(state: LearningState): void {
 export function validWord(word: WordItem): boolean {
   return !!word && typeof word.word === 'string' && word.word.length > 0 && word.word.length <= 80 &&
     typeof word.meaning === 'string' && typeof word.topic === 'string' && typeof word.source === 'string' &&
-    typeof word.phonetic === 'string' && typeof word.pos === 'string' && typeof word.example === 'string' && typeof word.translation === 'string';
+    typeof word.phonetic === 'string' && typeof word.pos === 'string' && typeof word.example === 'string' && typeof word.translation === 'string' &&
+    (word.study === undefined || validStudy(word.study));
 }
 
 export function mergeBackup(current: LearningState, incoming: LearningState, today: string): LearningState {

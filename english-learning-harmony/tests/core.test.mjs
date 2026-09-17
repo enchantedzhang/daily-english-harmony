@@ -181,6 +181,34 @@ test('statutory holidays override weekdays and makeup workdays override weekends
   assert.equal(core.validWorkCalendar({ ...core.BUILTIN_WORK_CALENDAR, days: [...core.BUILTIN_WORK_CALENDAR.days, core.BUILTIN_WORK_CALENDAR.days[0]] }), false);
 });
 
+test('study notes preserve patient senses/examples and do not invent suffix splits for unknown words', () => {
+  assert.equal(bank.filter(w => w.study).length, 32);
+  assert.ok(bank.filter(w => w.study).every(w => core.validStudy(w.study)));
+  const patient = bank.find(w => w.word === 'patient');
+  assert.equal(patient.study.examples.length, 3);
+  assert.match(patient.study.meaning, /耐心的.*病人/);
+  assert.match(patient.study.formation, /pati/);
+  assert.ok(patient.study.sources.includes('https://www.etymonline.com/word/patient'));
+  const unknown = { ...patient, word: 'inventedword', study: undefined };
+  const lesson = { ...core.emptyLesson('2026-09-17'), words: [unknown] };
+  assert.equal(core.enrichLessons([lesson], bank)[0].words[0].study, undefined);
+  assert.equal(core.validWord({ ...patient, study: { ...patient.study, examples: [{ english: 42, chinese: '' }] } }), false);
+  assert.equal(core.allowedWord({ ...patient, study: { ...patient.study, memory: 'abandon' } }), false);
+});
+
+test('old history gains study notes without replacing its original words, examples or learning marks', () => {
+  const patient = { ...bank.find(w => w.word === 'patient'), study: undefined };
+  const old = { ...core.emptyLesson('2026-09-10'), words: [patient], reviewed: ['patient'], eventId: 123 };
+  const original = structuredClone(old);
+  const enriched = core.enrichLessons([old], bank)[0];
+  assert.deepEqual(old, original);
+  assert.deepEqual({ ...enriched.words[0], study: undefined }, patient);
+  assert.equal(enriched.words[0].study.examples.length, 3);
+  assert.deepEqual(enriched.reviewed, ['patient']);
+  assert.equal(enriched.eventId, 123);
+  assert.deepEqual(core.enrichLessons([enriched], bank)[0], enriched);
+});
+
 test('excluded word cannot return through custom words, existing plans or backup imports', () => {
   const forbidden = { ...bank[0], word: ' AbAnDoN ' };
   assert.equal(core.allowedWord(forbidden), false);

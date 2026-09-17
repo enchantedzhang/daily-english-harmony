@@ -1,5 +1,7 @@
 # 词库来源
 
+构词讲解见 `word-study.json`，首批 32 词。patient 的三条例句与双关联想来自用户提供内容；历史词源核对 Etymonline 的 patient、reliable、algorithm 条目，用中文独立简述。现代词缀及合成词采用教学拆解，参考 Cambridge 的词缀、合成词语法说明。逐词来源随数据保存。未复制来源站点整篇解释或词条，未将记忆联想标为词源，也未批量猜测剩余词条。
+
 - 原 150 词：`words.tsv`，本工程原有中文释义和原创双语例句，全部保留。
 - 新增 850 词：ECDICT（https://github.com/skywind3000/ECDICT），按五个领域筛选，每领域新增 170 词；保留原始中文释义及音标，不补造缺失例句。
 - 上游 CSV：https://raw.githubusercontent.com/skywind3000/ECDICT/master/ecdict.csv

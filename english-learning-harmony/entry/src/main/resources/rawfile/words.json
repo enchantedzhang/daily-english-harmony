@@ -7,7 +7,20 @@
     "example": "She is a reliable friend.",
     "translation": "她是一位可靠的朋友。",
     "phonetic": "",
-    "source": "内置词库 · 原创例句"
+    "source": "内置词库 · 原创例句",
+    "study": {
+      "kind": "现代构词",
+      "formation": "rely（依靠）+ -able（可……的）→ reliable",
+      "explanation": "rely 加后缀时把 y 改成 i。能让人依靠、值得信赖，就是“可靠的”。",
+      "memory": "把 reliable friend 和 rely on a friend 放在一起记：可靠的朋友，是你能依靠的人。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://www.etymonline.com/word/reliable"
+      ]
+    }
   },
   {
     "topic": "日常交流",
@@ -117,7 +130,33 @@
     "example": "Be patient with yourself.",
     "translation": "对自己耐心一点。",
     "phonetic": "",
-    "source": "内置词库 · 原创例句"
+    "source": "内置词库 · 原创例句",
+    "study": {
+      "kind": "词源线索",
+      "formation": "拉丁语 pati（忍受、经历）→ patiens / patientem → patient",
+      "explanation": "形容词与名词都与“承受”这一词源有关：耐心的人能平静承受等待，病人正在承受疾病。这是历史词源，不是把现代拼写硬拆成 pati + ent。",
+      "memory": "对病人（patient）要有耐心（patient）；把等待就诊的场景和两个词义一起记。",
+      "meaning": "adj. 耐心的；n. 病人",
+      "phonetic": "/ˈpeɪʃnt/",
+      "englishMeaning": "able to wait calmly; a person receiving medical treatment",
+      "examples": [
+        {
+          "english": "Please be patient — the manager will see you soon.",
+          "chinese": "请耐心等待，经理很快就见您。"
+        },
+        {
+          "english": "Good teachers are always patient with their students.",
+          "chinese": "好老师对学生总是很耐心。"
+        },
+        {
+          "english": "The hospital treats hundreds of patients every day.",
+          "chinese": "这家医院每天接诊数百名病人。"
+        }
+      ],
+      "sources": [
+        "https://www.etymonline.com/word/patient"
+      ]
+    }
   },
   {
     "topic": "日常交流",
@@ -137,7 +176,20 @@
     "example": "These shoes are comfortable.",
     "translation": "这双鞋很舒适。",
     "phonetic": "",
-    "source": "内置词库 · 原创例句"
+    "source": "内置词库 · 原创例句",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "comfort + -able",
+      "explanation": "comfort（舒适、安慰）加形容词后缀 -able，表示使人舒适的。",
+      "memory": "坐进舒适的椅子，感受 comfort，再记 comfortable。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "topic": "日常交流",
@@ -607,7 +659,20 @@
     "example": "This algorithm sorts the records.",
     "translation": "这个算法对记录进行排序。",
     "phonetic": "",
-    "source": "内置词库 · 原创例句"
+    "source": "内置词库 · 原创例句",
+    "study": {
+      "kind": "词源线索",
+      "formation": "数学家 al-Khwarizmi 的名字 → 拉丁化形式 → algorithm",
+      "explanation": "这个词与数学家花拉子米名字的拉丁化形式有关；后来拼写发生变化。它不是由现代英语中几个表示计算的词块直接拼成的。",
+      "memory": "把“算法”想成厨谱：按明确步骤处理输入，得到结果。这是理解用途的联想，不是词源拆分。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://www.etymonline.com/word/algorithm"
+      ]
+    }
   },
   {
     "topic": "计算机技术",
@@ -1607,7 +1672,20 @@
     "meaning": "n. 编辑者\n[计] 编译程序",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "compile + -er",
+      "explanation": "compile（编译）去掉末尾 e，再加 -er，表示执行编译的程序。",
+      "memory": "编译器把源代码转换为另一种代码。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "component",
@@ -1757,7 +1835,20 @@
     "meaning": "[计] 展开",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "deploy + -ment",
+      "explanation": "deploy（部署）加 -ment，表示部署这一过程或结果。",
+      "memory": "把程序 deploy 到服务器，这次操作就是 deployment。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "desktop",
@@ -1777,7 +1868,20 @@
     "meaning": "n. 开发者\n[计] 显影器",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "develop + -er",
+      "explanation": "develop（开发）加 -er，表示从事开发的人。",
+      "memory": "把写应用的人和“开发”这一动作配对记。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "device",
@@ -1837,7 +1941,20 @@
     "meaning": "[计] 卸载, 下栽",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "down（向下）+ load（装载）",
+      "explanation": "把数据从远端传到自己的设备，称为下载。",
+      "memory": "从云端往手机里取文件，箭头向下。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "driver",
@@ -1847,7 +1964,20 @@
     "meaning": "n. 驾驶员, 驱动器, 驱动程序\n[化] 驱动器",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "drive + -er",
+      "explanation": "drive（驾驶、驱动）去掉末尾 e，再加 -er；可指司机，也可指驱动程序。",
+      "memory": "司机驱动车辆，驱动程序帮助系统控制设备。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "dynamic",
@@ -1967,7 +2097,20 @@
     "meaning": "n. 文件夹, 折纸机, 折叠式书本, 卷宗\n[计] 文件夹",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "fold + -er",
+      "explanation": "fold（折叠）加 -er；文件夹的实物形态可以折合，计算机借用它来组织文件。",
+      "memory": "想象把纸质文件放进能合上的夹子，再联想到电脑文件夹。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "format",
@@ -2137,7 +2280,20 @@
     "meaning": "n. 键盘\n[计] 键盘",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "key（按键）+ board（板）",
+      "explanation": "装有一组按键的板，就是键盘；这里 key 指按键，不是门钥匙。",
+      "memory": "想象整齐排列在一块板上的按键。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "keyword",
@@ -2377,7 +2533,20 @@
     "meaning": "n. 印刷工, 打印机\n[计] 打印机",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "print + -er",
+      "explanation": "print（打印）加 -er，在这里表示进行打印的机器。",
+      "memory": "能 print 的机器叫 printer。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "process",
@@ -2597,7 +2766,20 @@
     "meaning": "n. 服伺者, 上菜用具, 发球员\nn. 服务器\n[计] 服务器, 服务器启动程序, 服务台程序",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "serve + -er",
+      "explanation": "serve（服务）去掉末尾 e，加 -er；计算机语境中指提供服务的设备或程序。",
+      "memory": "客户端提出请求，服务器为它服务。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "session",
@@ -2807,7 +2989,20 @@
     "meaning": "[计] 上装, 加载, 储入",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "up（向上）+ load（装载）",
+      "explanation": "把本地数据发送到远端，称为上传。",
+      "memory": "把照片从手机送到云端，箭头向上。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "variable",
@@ -2867,7 +3062,20 @@
     "meaning": "n. 网站（全球资讯网的主机站）",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "web（网络）+ site（地点）",
+      "explanation": "互联网上的一处站点，就是网站。",
+      "memory": "把互联网想成一张地图，网站是其中一个地点。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "widget",
@@ -2897,7 +3105,20 @@
     "meaning": "n. 无线电\na. 无线的, 无线电的",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "wire + -less",
+      "explanation": "wire（电线）加 -less（没有……的），表示无线的。",
+      "memory": "把连接设备的那根线拿掉。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "xml",
@@ -3117,7 +3338,20 @@
     "meaning": "[计] 调试程序, 排错程序",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "debug + -er",
+      "explanation": "debug（调试）加 -er，末尾 g 双写，表示调试工具。",
+      "memory": "用 debugger 找出程序中的 bug。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "decoding",
@@ -3127,7 +3361,20 @@
     "meaning": "[计] 译码的\n[化] 解码",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "decode + -ing",
+      "explanation": "decode（解码）去掉末尾 e，加 -ing，表示解码过程。",
+      "memory": "和 encoding 配对记：一边编码，一边解码。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "delimiter",
@@ -3157,7 +3404,20 @@
     "meaning": "[计] 编码",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "encode + -ing",
+      "explanation": "encode（编码）去掉末尾 e，加 -ing；这里可指编码过程或编码形式。",
+      "memory": "把信息按规则转换成代码，整个过程是 encoding。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "endpoint",
@@ -3207,7 +3467,20 @@
     "meaning": "n. 分配, 功课, 任务, 转让, 归因, 陈述\n[计] 赋值",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "assign + -ment",
+      "explanation": "assign（分配、指派）加 -ment，表示被分配的任务等。",
+      "memory": "老师 assign 的任务就是 assignment。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "attendance",
@@ -3627,7 +3900,20 @@
     "meaning": "n. 雇主, 老板\n[经] 雇主, 业主",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "employ + -er",
+      "explanation": "employ（雇用）加 -er，指雇用他人的人或机构。",
+      "memory": "雇主提供工作岗位，而 employee 是受雇的人。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "employment",
@@ -3637,7 +3923,20 @@
     "meaning": "n. 雇用, 职业, 工作\n[经] 职业, 雇用, 职工招请",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "employ + -ment",
+      "explanation": "employ（雇用）加 -ment，表示雇用或就业状态。",
+      "memory": "将 employ 的动作与就业 employment 联系起来。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "enterprise",
@@ -3887,7 +4186,20 @@
     "meaning": "n. 投资\n[医] 包埋料, 围模料, 包埋法, 围模法",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "invest + -ment",
+      "explanation": "invest（投资）加 -ment，表示投资行为或投入的资金。",
+      "memory": "invest 是投入资金，investment 是这项投资。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "invoice",
@@ -3957,7 +4269,20 @@
     "meaning": "n. 经营, 支配, 管理\n[化] 管理处",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "manage + -ment",
+      "explanation": "manage（管理）加 -ment，形成名词“管理”。",
+      "memory": "manager 做管理工作，这项工作是 management。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "manager",
@@ -4137,7 +4462,20 @@
     "meaning": "n. 付款, 支付的款项(或实物), 偿还, 报应, 惩罚\n[经] 支付, 缴纳, 支付款额",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "pay + -ment",
+      "explanation": "pay（支付）加名词后缀 -ment，表示付款这一行为或支付的款项。",
+      "memory": "pay 是动作，payment 是这次付款或款项。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "payroll",
@@ -4317,7 +4655,20 @@
     "meaning": "n. 新兵征召\n[医] 募集[反应], 募集[现象](生理), 复聪(耳科)",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "recruit + -ment",
+      "explanation": "recruit（招募）加 -ment，表示招聘、招募这一过程。",
+      "memory": "从发布岗位到招到人，整段过程叫 recruitment。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "regulation",
@@ -4607,7 +4958,20 @@
     "meaning": "n. 协同作业, 协力\n[法] 联合工作, 联合行动, 协调工作",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "team（团队）+ work（工作）",
+      "explanation": "团队成员配合完成工作，就是团队合作。",
+      "memory": "把一个人做不到、几个人配合完成的任务连起来记。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "tender",
@@ -4767,7 +5131,20 @@
     "meaning": "n. 同意, 合约, 协议\n[经] 契约, 协议, 协定",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "agree + -ment",
+      "explanation": "agree（同意）加 -ment，将动作或状态变成名词“同意、协议”。",
+      "memory": "双方 agree 后，达成一份 agreement。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "allocation",
@@ -4797,7 +5174,20 @@
     "meaning": "n. 公告, 发表, 告知\n[经] 通告, 布告, 公告",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "announce + -ment",
+      "explanation": "announce（宣布）加 -ment，表示公告或宣布；保留 announce 末尾的 e。",
+      "memory": "公开 announce 的消息，可以成为一则 announcement。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "annual",
@@ -4907,7 +5297,20 @@
     "meaning": "n. 飞机场\n[机] 航空站, 机场",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "air（航空）+ port（港、交通枢纽）",
+      "explanation": "服务航空运输的港站，就是机场。",
+      "memory": "海上的港口供船停靠，航空港供飞机起降。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "airplane",
@@ -5157,7 +5560,20 @@
     "meaning": "n. 牙刷",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代合成词",
+      "formation": "tooth（牙齿）+ brush（刷子）",
+      "explanation": "用来刷牙的刷子，就是牙刷。",
+      "memory": "刷牙时默念 tooth + brush。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/compounds"
+      ]
+    }
   },
   {
     "word": "toothpaste",
@@ -8737,7 +9153,20 @@
     "meaning": "n. 排列, 整齐, 安排\n[计] 排列",
     "example": "",
     "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT",
+    "study": {
+      "kind": "现代构词（词缀）",
+      "formation": "arrange + -ment",
+      "explanation": "arrange（安排）加 -ment，表示安排或布置。",
+      "memory": "把 arrange 的动作，联系到安排好的 arrangement。",
+      "meaning": "",
+      "phonetic": "",
+      "englishMeaning": "",
+      "examples": [],
+      "sources": [
+        "https://dictionary.cambridge.org/grammar/british-grammar/suffixes"
+      ]
+    }
   },
   {
     "word": "artificial",
