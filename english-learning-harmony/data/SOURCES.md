@@ -9,3 +9,5 @@
 - `scripts/expand-dictionary.py` 中保留领域候选表及确定性筛选规则；`scripts/prepare-data.mjs` 合并并强制验证 1000 个唯一词条。
 
 运行时音频：Free Dictionary API（https://dictionaryapi.dev/）返回的 HTTPS MP3。每个下载文件的来源 URL、原录音来源及许可记录在缓存 `index.json`，未修改音频。此工程不附带或重新分发全量网络录音。
+
+工作日日历：NateScarlet/holiday-cn（MIT），2026 年数据于 2026-09-17 获取并对照国务院办公厅国办发明电〔2025〕7号核对。内置于 LearningCore.ts，版权许可随应用 rawfile/HOLIDAY-LICENSE.txt 提供。在线更新使用 https://cdn.jsdelivr.net/gh/NateScarlet/holiday-cn@master/{year}.json ，非自行部署的后端。排除词从筛选候选表移除，自动选入同领域下一词，保持每领域 200 词。

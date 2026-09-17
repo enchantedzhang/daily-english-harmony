@@ -2,7 +2,7 @@ import { common } from '@kit.AbilityKit';
 import { fileIo, picker } from '@kit.CoreFileKit';
 import { util } from '@kit.ArkTS';
 import { LearningSettings, LearningState, LegacyHistory, WordItem, dateKey, defaultSettings,
-  importLegacy, mergeBackup, planLessons, validateState, validWord } from '../model/LearningCore';
+  importLegacy, mergeBackup, planLessons, validateState, validWord, allowedWord } from '../model/LearningCore';
 
 export class LearningStore {
   private state: LearningState = { version: 1, reminderSyncPending: false, settings: defaultSettings(), lessons: [], customWords: [] };
@@ -74,6 +74,7 @@ export class LearningStore {
 
   refresh(): void {
     const next: LearningState = this.snapshot();
+    next.customWords = next.customWords.filter(allowedWord);
     next.lessons = planLessons(next, this.bank, dateKey(new Date()), false);
     if (JSON.stringify(next) !== JSON.stringify(this.state) || !fileIo.accessSync(this.path)) {
       if (next.settings.reminder) { next.reminderSyncPending = true; }
@@ -93,7 +94,7 @@ export class LearningStore {
     const next: LearningState = this.snapshot();
     let added: number = 0;
     for (const word of words) {
-      if (validWord(word) && !this.bank.concat(next.customWords).some((item: WordItem) => item.word === word.word && item.topic === word.topic)) {
+      if (validWord(word) && allowedWord(word) && !this.bank.concat(next.customWords).some((item: WordItem) => item.word === word.word && item.topic === word.topic)) {
         next.customWords.push(word);
         added++;
       }

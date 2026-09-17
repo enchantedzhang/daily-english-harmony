@@ -1,6 +1,6 @@
 import { common } from '@kit.AbilityKit';
 import { CalendarCell, DayLesson, LearningSettings, LearningState, WordItem, TOPICS,
-  availableWords, calendarCells, dateKey, defaultSettings, emptyLesson, parseDate, toggleReviewed, selectedTopics } from '../model/LearningCore';
+  availableWords, calendarCells, dateKey, defaultSettings, emptyLesson, parseDate, toggleReviewed, selectedTopics, isWorkday } from '../model/LearningCore';
 import { learningStore } from '../service/LearningStore';
 import { calendarReminders } from '../service/CalendarReminderService';
 import { speechService } from '../service/SpeechService';
@@ -9,6 +9,7 @@ import { discoverWords, lookupWord } from '../service/DictionaryService';
 import { WordCard } from '../components/WordCard';
 import { audioCache } from '../service/AudioCacheService';
 import { audioUpdates } from '../service/AudioUpdates';
+import { workCalendar } from '../service/WorkCalendarService';
 
 @Entry
 @Component
@@ -28,6 +29,7 @@ struct Index {
   @State draftAudio: boolean = true;
   @State audioStatus: string = '等待更新音频';
   @State backgroundStatus: string = '';
+  @State workCalendarStatus: string = '中国大陆法定工作日（含调休）';
   @State draftHour: number = 9;
   @State draftMinute: number = 0;
   @State draftReminder: boolean = false;
@@ -95,6 +97,7 @@ struct Index {
       if (this.appForeground) { audioUpdates.start(this.context()); }
       audioUpdates.schedule(this.settings.audioAutoUpdate !== false);
       if (learningStore.recoveryMessage) { this.tell(learningStore.recoveryMessage, true); }
+      await this.updateWorkCalendar();
       if (this.settings.reminder || learningStore.snapshot().reminderSyncPending) { await this.sync(false); }
     } catch (error) { this.error(error as Error); }
     finally { this.busy = false; this.starting = false; }
@@ -109,6 +112,7 @@ struct Index {
       if (this.selectedDate === oldToday) { this.selectDate(this.today); }
       this.reload();
       if (this.appForeground) { audioUpdates.start(this.context()); }
+      await this.updateWorkCalendar();
       if (this.settings.reminder || learningStore.snapshot().reminderSyncPending) { await this.sync(false); }
     } catch (error) { this.error(error as Error); }
     finally { this.busy = false; }
@@ -189,9 +193,15 @@ struct Index {
   private async manualSync(): Promise<void> {
     if (this.busy) { return; }
     this.busy = true;
-    try { learningStore.refresh(); await this.sync(true); }
+    try { learningStore.refresh(); await this.updateWorkCalendar(true); await this.sync(true); }
     catch (error) { this.error(error as Error); }
     finally { this.busy = false; }
+  }
+
+  private async updateWorkCalendar(force: boolean = false): Promise<void> {
+    await workCalendar.update(learningStore, force);
+    this.workCalendarStatus = workCalendar.status;
+    this.reload();
   }
 
   private learn(word: string): void {
@@ -273,6 +283,9 @@ struct Index {
 
   private dayStatus(): string {
     if (this.lesson.origin === '原历史记录') { return '原历史推送 · 已导入'; }
+    const workday: boolean | undefined = isWorkday(this.selectedDate, learningStore.snapshot().workCalendars);
+    if (workday === undefined) { return '年度调休安排待更新 · 暂不推送'; }
+    if (!workday) { return '休息日不推送 · 可自主学习'; }
     if (this.lesson.scheduledAt > Date.now()) { return '已登记系统日历提醒'; }
     if (this.lesson.scheduledAt > 0) { return '已到提醒时间 · 送达状态由系统决定'; }
     return this.selectedDate > this.today ? '未来词单预览 · 尚未登记提醒' : '本地每日词单';
@@ -420,7 +433,7 @@ struct Index {
     }.padding(20).backgroundColor(Color.White).borderRadius(20).width('100%')
     Column({ space: 14 }) {
       Row() {
-        Text('每日提醒').fontSize(16).fontColor('#27324B')
+        Text('工作日提醒（含调休）').fontSize(16).fontColor('#27324B')
         Blank()
         Toggle({ type: ToggleType.Switch, isOn: this.draftReminder }).selectedColor('#5267D8').enabled(!this.busy)
           .onChange((value: boolean) => this.draftReminder = value)
@@ -428,7 +441,9 @@ struct Index {
       TimePicker({ selected: new Date(2026, 0, 1, this.draftHour, this.draftMinute) }).useMilitaryTime(true).height(110)
         .enabled(!this.busy).onChange((value: TimePickerResult) => { this.draftHour = value.hour ?? 9; this.draftMinute = value.minute ?? 0; })
       Text(this.reminderStatus).fontSize(12).fontColor('#5267D8').width('100%')
-      Text('通过系统日历提醒，每天一条通知包含当天单词。每次打开应用补足未来 30 天；长时间不打开，计划到期后需重新同步。请开启系统日历通知。').fontSize(12).lineHeight(20).fontColor('#939CAF').width('100%')
+      Text(this.workCalendarStatus).fontSize(12).fontColor('#5267D8').width('100%')
+      Text('按中国大陆法定节假日安排：补班周末推送，放假工作日不推送。内置 2026 年安排，联网自动更新并离线保存；未取得完整年度安排时暂停该年份推送。休息日仍可自主学习。').fontSize(12).lineHeight(20).fontColor('#939CAF').width('100%')
+      Text('通过系统日历提醒，仅法定工作日每天一条通知包含当天单词。每次打开应用同步未来 30 个自然日；长时间不打开，计划到期后需重新同步。请开启系统日历通知。').fontSize(12).lineHeight(20).fontColor('#939CAF').width('100%')
       Button('同步提醒 / 重试').fontSize(13).backgroundColor('#EEF1FF').fontColor('#5267D8').enabled(!this.busy)
         .onClick(() => this.manualSync())
     }.padding(20).backgroundColor(Color.White).borderRadius(20).width('100%')

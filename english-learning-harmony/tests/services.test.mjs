@@ -26,7 +26,7 @@ function service(name, mocks) {
 function calendarHarness() {
   let state = { version: 1, reminderSyncPending: true, settings: { ...core.defaultSettings(), reminder: true }, lessons: [], customWords: [] };
   const tomorrow = core.addDays(core.dateKey(new Date()), 1);
-  state.lessons = core.planLessons(state, bank, tomorrow, false).slice(0, 3);
+  state.lessons = core.planLessons(state, bank, tomorrow, false).filter(l => core.isWorkday(l.date) === true).slice(0, 3);
   let serial = 100;
   const events = [];
   const calls = { add: 0, update: 0, delete: [], prompts: 0, granted: true, failAddAt: -1, failCommit: false, failDelete: false };
@@ -88,10 +88,66 @@ test('multi-domain reminders contain every selected domain and show the total wo
   const h = calendarHarness();
   const state = h.getState();
   state.settings.topics = ['职场沟通', '计算机技术'];
-  state.lessons = core.planLessons({ ...state, lessons: [] }, bank, core.addDays(core.dateKey(new Date()), 1), false).slice(0, 1);
+  state.lessons = core.planLessons({ ...state, lessons: [] }, bank, core.addDays(core.dateKey(new Date()), 1), false).filter(l => core.isWorkday(l.date) === true).slice(0, 1);
   await h.subject.synchronize(h.context, h.store, false);
   assert.match(h.events[0].title, /10 词/);
   for (const word of state.lessons[0].words) assert.ok(h.events[0].description.includes(`【${word.topic}】${word.word}：`));
+});
+
+test('sync removes owned rest-day reminders, registers makeup workdays and strips excluded words', async () => {
+  const h = calendarHarness();
+  const state = h.getState();
+  state.lessons = core.planLessons({ ...state, lessons: [] }, bank, core.addDays(core.dateKey(new Date()), 1), false);
+  const rest = state.lessons.find(l => core.isWorkday(l.date) === false);
+  assert.ok(rest);
+  rest.eventId = 900; rest.scheduledAt = core.reminderTime(rest.date, state.settings);
+  h.events.push({ id: 900, startTime: rest.scheduledAt, description: `[daily-english:${rest.date}]\nold reminder` });
+  const work = state.lessons.find(l => core.isWorkday(l.date) === true);
+  work.words.push({ ...bank[0], word: 'ABANDON' });
+  await h.subject.synchronize(h.context, h.store, false);
+  assert.ok(h.calls.delete.includes(900));
+  assert.ok(h.events.every(e => core.isWorkday(core.dateKey(new Date(e.startTime))) === true));
+  assert.ok(!/\babandon\b/i.test(JSON.stringify(h.events)));
+  const makeup = state.lessons.filter(l => !core.isWeekday(l.date) && core.isWorkday(l.date));
+  for (const lesson of makeup) assert.ok(h.events.some(e => e.description.startsWith(`[daily-english:${lesson.date}]`)));
+  assert.equal(h.getState().lessons.find(l => l.date === rest.date).scheduledAt, 0);
+});
+
+test('holiday updater saves complete years, preserves concurrent edits, and retains offline data on failure', async () => {
+  let state = { version: 1, reminderSyncPending: false, settings: { ...core.defaultSettings(), reminder: true }, lessons: [], customWords: [] };
+  let payload = structuredClone(core.BUILTIN_WORK_CALENDAR), destroyed = 0, fail = false;
+  const http = { RequestMethod: { GET: 0 }, HttpDataType: { STRING: 0 }, createHttp: () => ({
+    request: async () => { state.settings.count = 7; if (fail) throw new Error('offline'); return { responseCode: 200, result: JSON.stringify(payload) }; },
+    destroy: () => { destroyed++; }
+  }) };
+  const { WorkCalendarService } = service('WorkCalendarService', { '@kit.NetworkKit': { http } });
+  const subject = new WorkCalendarService();
+  const store = { snapshot: () => structuredClone(state), commit: next => { core.validateState(next); state = structuredClone(next); } };
+  await subject.update(store, true);
+  assert.equal(state.settings.count, 7);
+  assert.equal(state.workCalendars.length, 1);
+  assert.equal(state.reminderSyncPending, true);
+  const saved = JSON.stringify(state.workCalendars);
+  payload.papers = []; await subject.update(store, true);
+  assert.equal(JSON.stringify(state.workCalendars), saved);
+  fail = true; await subject.update(store, true);
+  assert.equal(JSON.stringify(state.workCalendars), saved);
+  assert.match(subject.status, /继续使用/);
+  assert.equal(destroyed, 3);
+});
+
+test('dictionary exclusion blocks requests and removes excluded online candidates', async () => {
+  let calls = 0;
+  const http = { RequestMethod: { GET: 0 }, HttpDataType: { STRING: 0 }, createHttp: () => ({
+    request: async () => { calls++; return { responseCode: 200, result: JSON.stringify([
+      { word: 'abandon', defs: ['v\tleave'] }, { word: 'cache', defs: ['n\ta temporary store'] }
+    ]) }; }, destroy: () => {}
+  }) };
+  const dictionary = service('DictionaryService', { '@kit.NetworkKit': { http } });
+  await assert.rejects(dictionary.lookupWord('ABANDON'), /已排除/);
+  assert.equal(calls, 0);
+  const words = await dictionary.discoverWords('software');
+  assert.deepEqual(Array.from(words, w => w.word), ['cache']);
 });
 
 test('changing reminder time updates existing events instead of duplicating them', async () => {

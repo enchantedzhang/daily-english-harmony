@@ -11,6 +11,7 @@ const words = rows.map((row, index) => {
 });
 words.push(...JSON.parse(fs.readFileSync(path.join(root, 'data/extended-words.json'), 'utf8')));
 if (words.length !== 1000 || new Set(words.map(x => x.word)).size !== 1000) throw new Error('Expected 1000 unique words');
+if (words.some(word => /\babandon\b/i.test(JSON.stringify(word)))) throw new Error('Excluded content in dictionary');
 const out = path.join(root, 'entry/src/main/resources/rawfile');
 fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(path.join(out, 'words.json'), JSON.stringify(words, null, 2) + '\n');

@@ -10,7 +10,7 @@ fs.mkdirSync(path.join(out, 'model'), { recursive: true });
 fs.mkdirSync(path.join(out, 'service'), { recursive: true });
 fs.copyFileSync(path.join(root, 'entry/src/main/ets/model/LearningCore.ts'), path.join(out, 'model/LearningCore.ts'));
 fs.copyFileSync(path.join(root, 'entry/src/main/ets/model/AudioCacheCore.ts'), path.join(out, 'model/AudioCacheCore.ts'));
-const services = ['LearningStore', 'CalendarReminderService', 'DictionaryService', 'RecordedAudioService', 'AudioCacheService', 'AudioUpdates'];
+const services = ['LearningStore', 'CalendarReminderService', 'DictionaryService', 'RecordedAudioService', 'AudioCacheService', 'AudioUpdates', 'WorkCalendarService'];
 const inputs = services.map(name => {
   const dest = path.join(out, `service/${name}.ts`);
   fs.copyFileSync(path.join(root, `entry/src/main/ets/service/${name}.ets`), dest);

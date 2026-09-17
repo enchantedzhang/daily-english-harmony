@@ -31,6 +31,7 @@ test('audio window includes exactly past seven, today and next twenty dates; pri
   assert.ok(words.includes('word-7') && words.includes('word20'));
   assert.ok(!words.includes('word-8') && !words.includes('word21'));
   assert.deepEqual(Array.from(policy.audioWords([wordLesson(today, 'HELLO'), wordLesson(core.addDays(today, 1), 'hello')], today)), ['hello']);
+  assert.equal(policy.audioWords([wordLesson(today, 'ABANDON')], today).length, 0);
 });
 
 test('audio filenames remain bounded and safe; only allowed HTTPS MP3 hosts pass; HTML never passes as audio', () => {

@@ -10,6 +10,7 @@ const state = (overrides = {}) => ({ version: 1, reminderSyncPending: false, set
 test('1000 unique words cover five domains and preserve original bilingual examples and legacy words', () => {
   assert.equal(bank.length, 1000);
   assert.equal(new Set(bank.map(w => w.word)).size, bank.length);
+  assert.ok(bank.every(core.allowedWord));
   assert.ok(bank.every(w => core.validWord(w) && w.meaning));
   assert.equal(bank.filter(w => w.example && w.translation).length, 150);
   assert.ok(legacy.entries.flatMap(e => e.words).every(w => bank.some(b => b.word === w)));
@@ -160,4 +161,44 @@ test('backup merge preserves existing lessons/settings and does not restore devi
   assert.equal(merged.lessons[0].origin, '备份导入');
   assert.deepEqual(core.mergeBackup(merged, incoming, '2026-09-17'), merged);
   assert.equal(current.lessons.length, 21);
+});
+
+test('statutory holidays override weekdays and makeup workdays override weekends', () => {
+  assert.equal(core.validWorkCalendar(core.BUILTIN_WORK_CALENDAR), true);
+  for (const date of ['2026-01-04', '2026-02-14', '2026-02-28', '2026-05-09', '2026-09-20', '2026-10-10']) {
+    assert.equal(core.isWeekday(date), false);
+    assert.equal(core.isWorkday(date), true, date);
+  }
+  for (const date of ['2026-01-01', '2026-02-23', '2026-04-06', '2026-05-05', '2026-06-19', '2026-09-25', '2026-10-07']) {
+    assert.equal(core.isWeekday(date), true);
+    assert.equal(core.isWorkday(date), false, date);
+  }
+  assert.equal(core.isWorkday('2026-09-19'), false);
+  assert.equal(core.isWorkday('2026-09-21'), true);
+  assert.equal(core.isWorkday('2027-01-04'), undefined);
+  assert.equal(core.validWorkCalendar({ ...core.BUILTIN_WORK_CALENDAR, papers: [] }), false);
+  assert.equal(core.validWorkCalendar({ ...core.BUILTIN_WORK_CALENDAR, days: [] }), false);
+  assert.equal(core.validWorkCalendar({ ...core.BUILTIN_WORK_CALENDAR, days: [...core.BUILTIN_WORK_CALENDAR.days, core.BUILTIN_WORK_CALENDAR.days[0]] }), false);
+});
+
+test('excluded word cannot return through custom words, existing plans or backup imports', () => {
+  const forbidden = { ...bank[0], word: ' AbAnDoN ' };
+  assert.equal(core.allowedWord(forbidden), false);
+  assert.equal(core.allowedWord({ ...bank[0], example: 'Please abandon this plan.' }), false);
+  assert.ok(!core.availableWords([forbidden, ...bank], [forbidden], '全部领域').some(w => !core.allowedWord(w)));
+  const s = state();
+  s.lessons = core.planLessons(s, bank, '2026-09-17', false);
+  s.lessons[0].words[0] = forbidden;
+  s.lessons[0].reviewed = [forbidden.word];
+  s.lessons[0].reviewWords = [forbidden.word];
+  s.lessons[0].phrase = 'abandon';
+  const past = { ...structuredClone(s.lessons[0]), date: '2026-09-16' };
+  s.lessons.unshift(past);
+  const planned = core.planLessons(s, bank, '2026-09-17', false);
+  assert.equal(planned.find(l => l.date === '2026-09-17').words.length, 5);
+  assert.equal(planned[0].words.length, 4);
+  assert.ok(!/\babandon\b/i.test(JSON.stringify(planned)));
+  assert.deepEqual(core.planLessons({ ...s, lessons: planned }, bank, '2026-09-17', false), planned);
+  const restored = core.mergeBackup(state(), { ...s, customWords: [forbidden] }, '2026-09-17');
+  assert.ok(!/\babandon\b/i.test(JSON.stringify(restored)));
 });

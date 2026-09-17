@@ -8300,16 +8300,6 @@
     "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
   },
   {
-    "word": "abandon",
-    "topic": "阅读表达",
-    "phonetic": "ә'bændәn",
-    "pos": "",
-    "meaning": "vt. 放弃, 抛弃, 遗弃, 使屈从, 沉溺, 放纵\nn. 放任, 无拘束, 狂热",
-    "example": "",
-    "translation": "",
-    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
-  },
-  {
     "word": "ability",
     "topic": "阅读表达",
     "phonetic": "ә'biliti",
@@ -9995,6 +9985,16 @@
     "phonetic": "ik'ses",
     "pos": "",
     "meaning": "n. 过度, 剩于, 超过, 超额\na. 过量的, 额外的",
+    "example": "",
+    "translation": "",
+    "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"
+  },
+  {
+    "word": "exclude",
+    "topic": "阅读表达",
+    "phonetic": "iks'klu:d",
+    "pos": "",
+    "meaning": "vt. 除外, 排除, 排斥\n[医] 除外(诊断)",
     "example": "",
     "translation": "",
     "source": "ECDICT · MIT · https://github.com/skywind3000/ECDICT"

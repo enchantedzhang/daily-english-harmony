@@ -1,6 +1,6 @@
 import { abilityAccessCtrl, common, Permissions } from '@kit.AbilityKit';
 import { calendarManager } from '@kit.CalendarKit';
-import { DayLesson, LearningState, WordItem, reminderTime } from '../model/LearningCore';
+import { DayLesson, LearningState, WordItem, reminderTime, isWorkday, cleanLesson } from '../model/LearningCore';
 import { LearningStore } from './LearningStore';
 
 const ACCOUNT_NAME: string = 'dailyenglish.personal.v1';
@@ -29,6 +29,7 @@ export class CalendarReminderService {
       }
     }
     const state: LearningState = store.snapshot();
+    state.lessons = state.lessons.map(cleanLesson);
     const manager: calendarManager.CalendarManager = calendarManager.getCalendarManager(context);
     const calendars: calendarManager.Calendar[] = await manager.getAllCalendars();
     let calendar: calendarManager.Calendar | undefined = calendars.find((item: calendarManager.Calendar) => item.getAccount().name === ACCOUNT_NAME);
@@ -46,7 +47,8 @@ export class CalendarReminderService {
     await calendar.setConfig({ enableReminder: state.settings.reminder, color: '#5267D8' });
     const events: calendarManager.Event[] = await calendar.getEvents();
     const now: number = Date.now();
-    const desired: DayLesson[] = state.settings.reminder ? state.lessons.filter((lesson: DayLesson) => reminderTime(lesson.date, state.settings) > now) : [];
+    const desired: DayLesson[] = state.settings.reminder ? state.lessons.filter((lesson: DayLesson) =>
+      isWorkday(lesson.date, state.workCalendars) === true && lesson.words.length > 0 && reminderTime(lesson.date, state.settings) > now) : [];
     const retained: Set<number> = new Set<number>();
     let count: number = 0;
     for (const lesson of desired) {

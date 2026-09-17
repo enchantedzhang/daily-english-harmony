@@ -1,5 +1,5 @@
 import { http } from '@kit.NetworkKit';
-import { WordItem } from '../model/LearningCore';
+import { WordItem, allowedText, allowedWord } from '../model/LearningCore';
 
 interface RelatedWord { word: string; defs?: string[]; tags?: string[]; }
 interface DictionaryDefinition { definition: string; example?: string; }
@@ -31,6 +31,7 @@ async function getJson(url: string): Promise<string> {
 }
 
 export async function lookupWord(word: string): Promise<WordItem> {
+  if (!allowedText(word)) { throw new Error('该词已排除。'); }
   if (!/^[a-zA-Z][a-zA-Z '-]{0,79}$/.test(word)) { throw new Error('请输入英文单词。'); }
   const entries: DictionaryEntry[] = JSON.parse(await getJson(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`)) as DictionaryEntry[];
   if (!Array.isArray(entries) || entries.length === 0) { throw new Error('词典未返回释义。'); }
@@ -38,11 +39,13 @@ export async function lookupWord(word: string): Promise<WordItem> {
   const meaning: DictionaryMeaning | undefined = entry.meanings?.find((item: DictionaryMeaning) => !!item.definitions && item.definitions.length > 0);
   const definition: DictionaryDefinition | undefined = meaning?.definitions?.[0];
   if (!definition || typeof definition.definition !== 'string') { throw new Error('词典未返回可用释义。'); }
-  return {
+  const result: WordItem = {
     word: word, phonetic: entry.phonetic || entry.phonetics?.find((item: DictionaryPhonetic) => !!item.text)?.text || '',
     pos: meaning?.partOfSpeech || '', meaning: definition.definition, example: definition.example || '', translation: '', topic: '在线词典',
     source: `Free Dictionary API · ${entry.license?.name || 'Wiktionary'}\n${entry.sourceUrls?.[0] || 'https://dictionaryapi.dev/'}\n${entry.license?.url || ''}`
   };
+  if (!allowedWord(result)) { throw new Error('该词典结果包含已排除内容。'); }
+  return result;
 }
 
 export async function discoverWords(topic: string): Promise<WordItem[]> {
@@ -61,5 +64,5 @@ export async function discoverWords(topic: string): Promise<WordItem[]> {
       source: 'Datamuse / WordNet / Wiktionary · https://www.datamuse.com/api/ · 英文原释义' });
   }
   if (words.length === 0) { throw new Error('未找到带释义的相关词，请尝试更常见的领域名称。'); }
-  return words;
+  return words.filter(allowedWord);
 }

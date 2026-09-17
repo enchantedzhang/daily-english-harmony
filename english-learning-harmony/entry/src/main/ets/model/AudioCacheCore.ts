@@ -1,4 +1,4 @@
-import { addDays } from './LearningCore';
+import { addDays, allowedWord } from './LearningCore';
 import type { DayLesson } from './LearningCore';
 
 export const AUDIO_FILE_LIMIT: number = 512 * 1024;
@@ -27,6 +27,7 @@ export function audioWords(lessons: DayLesson[], today: string): string[] {
   });
   const result: string[] = [];
   selected.forEach((lesson: DayLesson) => lesson.words.forEach((item) => {
+    if (!allowedWord(item)) { return; }
     const word: string = item.word.trim().toLowerCase();
     if (!result.includes(word)) { result.push(word); }
   }));
