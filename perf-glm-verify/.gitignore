@@ -1,0 +1,64 @@
+# Compiled class files
+*.class
+# OS generated files #
+.DS_Store
+Thumbs.db
+
+# IDEs and code editors
+.idea/
+# Log files
+*.log
+
+# Other IDEs
+.project
+.classpath
+.settings/
+*.crx
+
+# Ignore Gradle cache
+.gradle/
+*.gradletasknamecache
+
+# IntelliJ
+/out/
+
+# Eclipse
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*.tag
+
+# NetBeans
+nbproject/private/
+*.hprof
+
+
+# Jenkins
+jenkins/workspace/
+
+# Sonarlint
+.sonarlint/
+
+# SonarQube server
+.sonarqube/
+
+# Eclipse with Groovy/Grails tooling
+.grails/
+*.groovy
+
+# IntelliJ
+*.ipr
+*.iws
+.idea/
+
+# Spring Boot
+build/
+*.log
+*.jar
+*.war
+*.zip
+target/
+/cmake-build-*/
+/dist/

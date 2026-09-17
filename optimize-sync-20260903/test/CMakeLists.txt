@@ -1,0 +1,7 @@
+if(BUILD_TESTS STREQUAL "ON")
+    message(STATUS "BUILD_TESTS = ON, add compile gov")
+    add_compile_options(-fdump-rtl-expand)
+    add_compile_options(-fprofile-arcs -ftest-coverage)
+    add_link_options(-lgcov --coverage)
+    add_subdirectory(llt)
+endif()

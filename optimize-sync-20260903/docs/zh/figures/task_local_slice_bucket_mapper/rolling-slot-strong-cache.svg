@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <defs>
+    <style>
+      .title{font:700 25px "Microsoft YaHei",sans-serif;fill:#183153}
+      .label{font:600 17px "Microsoft YaHei",sans-serif;fill:#183153}
+      .text{font:15px "Microsoft YaHei",sans-serif;fill:#334155}
+      .small{font:14px "Microsoft YaHei",sans-serif;fill:#475569}
+      .white{font:600 16px "Microsoft YaHei",sans-serif;fill:#fff}
+      .mono{font:14px Consolas,monospace;fill:#334155}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#2563eb"/></marker>
+  </defs>
+  <rect width="1200" height="600" rx="18" fill="#f8fafc"/>
+  <text x="48" y="48" class="title">单-slot 滚动强缓存：同一 Snapshot Slice 只解码一次</text>
+  <text x="48" y="82" class="text">场景：扩容拆分后，目标 slot 0 和 slot 1 都引用 Snapshot payload A</text>
+
+  <line x1="110" y1="130" x2="110" y2="536" stroke="#94a3b8" stroke-width="3"/>
+  <circle cx="110" cy="160" r="10" fill="#2563eb"/><circle cx="110" cy="330" r="10" fill="#7c3aed"/><circle cx="110" cy="510" r="10" fill="#0f766e"/>
+
+  <text x="52" y="165" class="label">slot 0</text>
+  <rect x="160" y="116" width="246" height="88" rx="12" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="283" y="148" text-anchor="middle" class="label">读取 + 解压 payload A</text>
+  <text x="283" y="177" text-anchor="middle" class="small">创建 SliceRef A</text>
+  <path d="M414 160 L494 160" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="510" y="116" width="246" height="88" rx="12" fill="#2563eb"/>
+  <text x="633" y="148" text-anchor="middle" class="white">currentSlot</text>
+  <text x="633" y="177" text-anchor="middle" class="white">强引用 A</text>
+  <path d="M764 160 L844 160" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="860" y="116" width="260" height="88" rx="12" fill="#ecfdf5" stroke="#34d399"/>
+  <text x="990" y="148" text-anchor="middle" class="label">Compaction slot 0</text>
+  <text x="990" y="177" text-anchor="middle" class="small">完成后 CompleteSlot()</text>
+
+  <path d="M990 214 C990 258 820 264 754 294" fill="none" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="52" y="335" class="label">slot 1</text>
+  <rect x="160" y="286" width="246" height="88" rx="12" fill="#ede9fe" stroke="#a78bfa"/>
+  <text x="283" y="318" text-anchor="middle" class="label">Find(payload A)</text>
+  <text x="283" y="347" text-anchor="middle" class="small">命中 previousSlot</text>
+  <path d="M414 330 L494 330" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="510" y="286" width="246" height="88" rx="12" fill="#7c3aed"/>
+  <text x="633" y="318" text-anchor="middle" class="white">提升到 currentSlot</text>
+  <text x="633" y="347" text-anchor="middle" class="white">直接复用 SliceRef A</text>
+  <path d="M764 330 L844 330" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="860" y="286" width="260" height="88" rx="12" fill="#ecfdf5" stroke="#34d399"/>
+  <text x="990" y="318" text-anchor="middle" class="label">Compaction slot 1</text>
+  <text x="990" y="347" text-anchor="middle" class="small">无重复读取、无重复解压</text>
+
+  <path d="M990 384 C990 430 820 444 754 478" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="52" y="515" class="label">滚动</text>
+  <rect x="160" y="464" width="596" height="92" rx="12" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="458" y="497" text-anchor="middle" class="label">只保留紧邻窗口</text>
+  <text x="458" y="526" text-anchor="middle" class="text">previousSlot ← currentSlot；更早且未复用的强引用被释放</text>
+  <rect x="820" y="464" width="300" height="92" rx="12" fill="#fff7ed" stroke="#fb923c"/>
+  <text x="970" y="497" text-anchor="middle" class="label">启用与生命周期</text>
+  <text x="970" y="526" text-anchor="middle" class="small">compositeNum&gt;1 或 force=true；非全局常驻</text>
+</svg>

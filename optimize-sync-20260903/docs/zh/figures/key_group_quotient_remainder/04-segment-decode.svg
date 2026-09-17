@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#1f2937"/>
+    </marker>
+    <style>
+      .title{font:700 36px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#17365d}
+      .h2{font:700 26px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#17365d}
+      .body{font:500 22px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1f2937}
+      .small{font:500 18px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#475569}
+      .formula{font:700 21px Consolas,"Microsoft YaHei",monospace;fill:#17365d}
+      .box{stroke-width:2;rx:14}
+      .arrow{stroke:#1f2937;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="60" y="70" class="title">orderHash 分段解码：先判断所在区域，再计算组号</text>
+  <text x="60" y="112" class="small">示例 H=16，M=3，base=5，extra=1，longSpan=6。</text>
+
+  <text x="70" y="205" class="h2">输出空间</text>
+  <g transform="translate(230,155)">
+    <rect x="0" y="0" width="420" height="110" fill="#dce9f7" stroke="#2f77c5" stroke-width="2"/>
+    <rect x="420" y="0" width="350" height="110" fill="#e7f4e8" stroke="#2e8b3c" stroke-width="2"/>
+    <rect x="770" y="0" width="350" height="110" fill="#f1e8fa" stroke="#8659b5" stroke-width="2"/>
+    <text x="210" y="42" text-anchor="middle" class="body">keyGroup 0</text>
+    <text x="210" y="76" text-anchor="middle" class="formula">orderHash 0–5</text>
+    <text x="595" y="42" text-anchor="middle" class="body">keyGroup 1</text>
+    <text x="595" y="76" text-anchor="middle" class="formula">orderHash 6–10</text>
+    <text x="945" y="42" text-anchor="middle" class="body">keyGroup 2</text>
+    <text x="945" y="76" text-anchor="middle" class="formula">orderHash 11–15</text>
+    <line x1="420" y1="-24" x2="420" y2="132" stroke="#d35400" stroke-width="4"/>
+    <text x="420" y="-36" text-anchor="middle" class="h2" fill="#b54708">longSpan=6</text>
+  </g>
+
+  <path d="M790 315 V370" class="arrow"/>
+  <rect x="540" y="380" width="500" height="105" class="box" fill="#f2f4f7" stroke="#64748b"/>
+  <text x="790" y="423" text-anchor="middle" class="h2">orderHash &lt; longSpan ?</text>
+  <text x="790" y="457" text-anchor="middle" class="small">判断值位于长组区还是普通组区</text>
+
+  <path d="M540 430 H325 V545" class="arrow"/>
+  <text x="390" y="415" class="body">是</text>
+  <rect x="80" y="555" width="570" height="150" class="box" fill="#dce9f7" stroke="#2f77c5"/>
+  <text x="365" y="604" text-anchor="middle" class="h2">长组区 [0, longSpan)</text>
+  <text x="365" y="650" text-anchor="middle" class="formula">keyGroup = orderHash / (base+1)</text>
+  <text x="365" y="682" text-anchor="middle" class="small">每个区间长度均为 base+1</text>
+
+  <path d="M1040 430 H1260 V545" class="arrow"/>
+  <text x="1160" y="415" class="body">否</text>
+  <rect x="950" y="555" width="570" height="150" class="box" fill="#e7f4e8" stroke="#2e8b3c"/>
+  <text x="1235" y="604" text-anchor="middle" class="h2">普通组区 [longSpan, H)</text>
+  <text x="1235" y="650" text-anchor="middle" class="formula">extra+(orderHash-longSpan)/base</text>
+  <text x="1235" y="682" text-anchor="middle" class="small">先跳过长组，再按 base 分段</text>
+
+  <rect x="180" y="765" width="1240" height="92" class="box" fill="#fff4e5" stroke="#d35400"/>
+  <text x="220" y="810" class="h2">示例：orderHash=10</text>
+  <text x="560" y="810" class="body">10≥6，进入普通组区：1 + (10-6)/5 = 1，恢复 keyGroup 1。</text>
+  <text x="220" y="840" class="small">所有除法均为整数除法。</text>
+</svg>

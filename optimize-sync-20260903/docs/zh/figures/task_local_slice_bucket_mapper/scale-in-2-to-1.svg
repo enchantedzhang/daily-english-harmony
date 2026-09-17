@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img">
+  <defs>
+    <style>
+      .title{font:700 25px "Microsoft YaHei",sans-serif;fill:#183153}
+      .label{font:600 17px "Microsoft YaHei",sans-serif;fill:#183153}
+      .text{font:15px "Microsoft YaHei",sans-serif;fill:#334155}
+      .num{font:14px Consolas,monospace;fill:#334155}
+      .white{font:600 16px "Microsoft YaHei",sans-serif;fill:#fff}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#0f766e"/></marker>
+  </defs>
+  <rect width="1200" height="480" rx="18" fill="#f8fafc"/>
+  <text x="48" y="48" class="title">缩容 2→1：两个窄旧 bucket 汇聚成一个宽目标 bucket</text>
+
+  <text x="48" y="94" class="label">旧 Mapper：Task 持有 KG [0, 7]</text>
+  <rect x="150" y="118" width="420" height="80" rx="10" fill="#0ea5e9"/>
+  <rect x="630" y="118" width="420" height="80" rx="10" fill="#14b8a6"/>
+  <text x="360" y="151" text-anchor="middle" class="white">旧 bucket 0</text>
+  <text x="360" y="176" text-anchor="middle" class="white">[0, 67108863]</text>
+  <text x="840" y="151" text-anchor="middle" class="white">旧 bucket 1</text>
+  <text x="840" y="176" text-anchor="middle" class="white">[67108864, 134217727]</text>
+
+  <path d="M360 210 C360 262 480 262 540 306" fill="none" stroke="#0f766e" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M840 210 C840 262 720 262 660 306" fill="none" stroke="#0f766e" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="600" y="254" text-anchor="middle" class="label">两个 oldRange 均映射到 target bucket 0</text>
+
+  <text x="48" y="306" class="label">目标 Mapper：Task 持有 KG [0, 15]</text>
+  <rect x="220" y="330" width="760" height="80" rx="10" fill="#0f766e"/>
+  <line x1="600" y1="330" x2="600" y2="410" stroke="#99f6e4" stroke-width="2" stroke-dasharray="7 6"/>
+  <text x="600" y="363" text-anchor="middle" class="white">目标 bucket 0 · [0, 134217727]</text>
+  <text x="600" y="390" text-anchor="middle" class="white">Composite(old bucket 0, old bucket 1) → Compaction → Simple Chain</text>
+
+  <rect x="220" y="430" width="760" height="32" rx="8" fill="#ecfdf5" stroke="#34d399"/>
+  <text x="600" y="452" text-anchor="middle" class="text">目标 slot 只保存一条普通 chain；Composite 是恢复过程中的临时编排结构</text>
+</svg>

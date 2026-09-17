@@ -1,0 +1,15 @@
+[submodule "3rdparty/googletest/googletest"]
+	path = 3rdparty/googletest/googletest
+	url = https://gitcode.com/GitHub_Trending/go/googletest.git
+	tag = v1.16.0
+[submodule "3rdparty/lz4/lz4"]
+	path = 3rdparty/lz4/lz4
+	url = https://gitcode.com/GitHub_Trending/lz/lz4.git
+    tag = v1.10.0
+[submodule "3rdparty/secure/libboundscheck"]
+	path = 3rdparty/secure/libboundscheck
+	url = https://gitcode.com/src-openeuler/libboundscheck.git
+[submodule "3rdparty/spdlog/spdlog"]
+	path = 3rdparty/spdlog/spdlog
+	url = https://gitcode.com/GitHub_Trending/sp/spdlog.git
+	tag = v1.15.3

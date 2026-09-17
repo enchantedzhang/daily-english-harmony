@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#1f2937"/>
+    </marker>
+    <style>
+      .title{font:700 36px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#17365d}
+      .h2{font:700 27px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#17365d}
+      .body{font:500 22px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#1f2937}
+      .small{font:500 19px "Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#374151}
+      .formula{font:700 22px Consolas,"Microsoft YaHei",monospace;fill:#17365d}
+      .arrow{stroke:#1f2937;stroke-width:4;fill:none;marker-end:url(#arrow)}
+      .box{stroke-width:2;rx:14}
+    </style>
+    <pattern id="cut" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#d35400" stroke-width="3"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="60" y="68" class="title">旧高位覆盖与商余重排：信息保留方式对照</text>
+
+  <text x="70" y="140" class="h2">旧方案：写入 key-group 前缀</text>
+  <text x="70" y="178" class="small">获得同组连续性，但覆盖 rawHash 高位；字段宽度仅作结构示意，不按位数比例。</text>
+  <g transform="translate(90,225)">
+    <rect x="0" y="0" width="1180" height="86" fill="#f2f4f7" stroke="#64748b" stroke-width="2"/>
+    <text x="590" y="52" text-anchor="middle" class="body">rawHash：31 位有效信息</text>
+    <path d="M590 316 V365" class="arrow" transform="translate(0,-5)"/>
+    <rect x="0" y="145" width="420" height="90" fill="#fff4e5" stroke="#d35400" stroke-width="2"/>
+    <rect x="420" y="145" width="760" height="90" fill="#f2f4f7" stroke="#64748b" stroke-width="2"/>
+    <text x="210" y="198" text-anchor="middle" class="body">keyGroup 前缀</text>
+    <text x="800" y="198" text-anchor="middle" class="body">rawHash 低位</text>
+    <rect x="0" y="0" width="420" height="86" fill="url(#cut)" opacity=".8"/>
+    <text x="1370" y="175" text-anchor="middle" class="h2" fill="#9b2c2c">覆盖</text>
+    <text x="1370" y="210" text-anchor="middle" class="small">高位信息丢失</text>
+  </g>
+
+  <line x1="70" y1="520" x2="1530" y2="520" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="585" class="h2">新方案：完整空间重新编号</text>
+  <text x="70" y="623" class="small">先得到唯一坐标 (r,q)，再按 key-group 连续拼接。</text>
+
+  <rect x="90" y="665" width="300" height="100" class="box" fill="#dce9f7" stroke="#2f77c5"/>
+  <text x="240" y="707" text-anchor="middle" class="body">rawHash</text>
+  <text x="240" y="741" text-anchor="middle" class="formula">h</text>
+  <path d="M390 715 H485" class="arrow"/>
+  <rect x="490" y="665" width="320" height="100" class="box" fill="#fff4e5" stroke="#d35400"/>
+  <text x="650" y="707" text-anchor="middle" class="body">唯一坐标</text>
+  <text x="650" y="741" text-anchor="middle" class="formula">(r=h%M, q=h/M)</text>
+  <path d="M810 715 H905" class="arrow"/>
+  <rect x="910" y="665" width="320" height="100" class="box" fill="#e7f4e8" stroke="#2e8b3c"/>
+  <text x="1070" y="707" text-anchor="middle" class="body">连续区间位置</text>
+  <text x="1070" y="741" text-anchor="middle" class="formula">prefix(r)+q</text>
+  <path d="M1230 715 H1325" class="arrow"/>
+  <rect x="1330" y="665" width="200" height="100" class="box" fill="#eef5fc" stroke="#2f77c5"/>
+  <text x="1430" y="707" text-anchor="middle" class="body">orderHash</text>
+  <text x="1430" y="741" text-anchor="middle" class="small">无冲突 / 无空洞</text>
+
+  <rect x="160" y="810" width="1280" height="62" class="box" fill="#eef5fc" stroke="#2f77c5"/>
+  <text x="200" y="849" class="h2">根因修复</text>
+  <text x="390" y="849" class="body">不再“覆盖某些位”，而是对全部 2³¹ 个位置做一一对应的重排。</text>
+</svg>

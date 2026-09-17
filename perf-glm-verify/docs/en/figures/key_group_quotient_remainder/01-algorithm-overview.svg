@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#1f2937"/></marker>
+    <style>
+      .title{font:700 36px "Noto Sans",Arial,sans-serif;fill:#17365d}.h2{font:700 25px "Noto Sans",Arial,sans-serif;fill:#17365d}.body{font:500 22px "Noto Sans",Arial,sans-serif;fill:#1f2937}.small{font:500 19px "Noto Sans",Arial,sans-serif;fill:#374151}.formula{font:700 23px Consolas,monospace;fill:#17365d}.box{stroke-width:2;rx:14}.arrow{stroke:#1f2937;stroke-width:4;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#fff"/>
+  <text x="60" y="70" class="title">Key-Group Quotient–Remainder Reordering: From Goal to Sort Key</text>
+  <rect x="70" y="155" width="250" height="130" class="box" fill="#f2f4f7" stroke="#64748b"/>
+  <text x="195" y="205" text-anchor="middle" class="h2">Goal</text><text x="195" y="242" text-anchor="middle" class="body">Contiguous groups</text><text x="195" y="272" text-anchor="middle" class="small">Ordered / collision-free</text>
+  <path d="M320 220 H405" class="arrow"/>
+  <rect x="410" y="155" width="270" height="130" class="box" fill="#dce9f7" stroke="#2f77c5"/>
+  <text x="545" y="205" text-anchor="middle" class="h2">Euclidean division</text><text x="545" y="246" text-anchor="middle" class="formula">h = qM + r</text><text x="545" y="275" text-anchor="middle" class="small">r=keyGroup, q=in-group index</text>
+  <path d="M680 220 H765" class="arrow"/>
+  <rect x="770" y="155" width="270" height="130" class="box" fill="#fff4e5" stroke="#d35400"/>
+  <text x="905" y="205" text-anchor="middle" class="h2">Group start</text><text x="905" y="246" text-anchor="middle" class="formula">prefix(r)</text><text x="905" y="275" text-anchor="middle" class="small">Sum lengths before group r</text>
+  <path d="M1040 220 H1125" class="arrow"/>
+  <rect x="1130" y="155" width="330" height="130" class="box" fill="#e7f4e8" stroke="#2e8b3c"/>
+  <text x="1295" y="205" text-anchor="middle" class="h2">Generate sort key</text><text x="1295" y="246" text-anchor="middle" class="formula">orderHash=prefix(r)+q</text><text x="1295" y="275" text-anchor="middle" class="small">Segments by r; ascending q</text>
+  <text x="70" y="380" class="h2">Resulting space layout</text>
+  <text x="70" y="418" class="small">Original hashes interleave by q; reordered hashes form contiguous r intervals of length base or base+1 (not to scale).</text>
+  <text x="80" y="500" class="body">Original order</text>
+  <g transform="translate(240,455)">
+    <g fill="#dce9f7" stroke="#64748b" stroke-width="2"><rect x="0" y="0" width="125" height="76"/><rect x="125" y="0" width="125" height="76"/><rect x="250" y="0" width="125" height="76"/><rect x="375" y="0" width="125" height="76"/><rect x="500" y="0" width="125" height="76"/><rect x="625" y="0" width="125" height="76"/><rect x="750" y="0" width="125" height="76"/><rect x="875" y="0" width="125" height="76"/><rect x="1000" y="0" width="125" height="76"/></g>
+    <g class="body" text-anchor="middle"><text x="62" y="31">r0</text><text x="187" y="31">r1</text><text x="312" y="31">r2</text><text x="437" y="31">r0</text><text x="562" y="31">r1</text><text x="687" y="31">r2</text><text x="812" y="31">r0</text><text x="937" y="31">r1</text><text x="1062" y="31">r2</text></g>
+    <g class="small" text-anchor="middle"><text x="62" y="59">q0</text><text x="187" y="59">q0</text><text x="312" y="59">q0</text><text x="437" y="59">q1</text><text x="562" y="59">q1</text><text x="687" y="59">q1</text><text x="812" y="59">q2</text><text x="937" y="59">q2</text><text x="1062" y="59">q2</text></g>
+  </g>
+  <path d="M800 550 V615" class="arrow"/><text x="80" y="692" class="body">Reordered</text>
+  <g transform="translate(240,642)">
+    <rect x="0" y="0" width="375" height="82" fill="#dce9f7" stroke="#2f77c5" stroke-width="2"/><rect x="375" y="0" width="375" height="82" fill="#e7f4e8" stroke="#2e8b3c" stroke-width="2"/><rect x="750" y="0" width="375" height="82" fill="#f1e8fa" stroke="#8659b5" stroke-width="2"/>
+    <g class="body" text-anchor="middle"><text x="187" y="35">keyGroup r0</text><text x="562" y="35">keyGroup r1</text><text x="937" y="35">keyGroup r2</text></g>
+    <g class="small" text-anchor="middle"><text x="187" y="65">q0 → q1 → q2 → ...</text><text x="562" y="65">q0 → q1 → q2 → ...</text><text x="937" y="65">q0 → q1 → q2 → ...</text></g>
+  </g>
+  <rect x="160" y="790" width="1280" height="76" class="box" fill="#eef5fc" stroke="#2f77c5"/>
+  <text x="200" y="828" class="h2">Key idea</text><text x="390" y="828" class="body">Coordinates stay fixed; traversal changes from fixed q over r to fixed r over q.</text>
+</svg>

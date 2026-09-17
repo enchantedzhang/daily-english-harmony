@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+  <defs>
+    <style>
+      .title{font:700 25px "Microsoft YaHei",sans-serif;fill:#183153}
+      .head{font:700 17px "Microsoft YaHei",sans-serif;fill:#183153}
+      .text{font:15px "Microsoft YaHei",sans-serif;fill:#334155}
+      .small{font:14px "Microsoft YaHei",sans-serif;fill:#475569}
+      .mono{font:14px Consolas,monospace;fill:#334155}
+      .num{font:700 18px Consolas,monospace;fill:#fff}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0 L9 3 L0 6 Z" fill="#64748b"/></marker>
+  </defs>
+  <rect width="1200" height="520" rx="18" fill="#f8fafc"/>
+  <text x="48" y="48" class="title">Restore 的真实坐标：先还原范围，再决定目标 slot</text>
+
+  <g transform="translate(42 102)">
+    <rect width="190" height="150" rx="14" fill="#eff6ff" stroke="#60a5fa" stroke-width="2"/>
+    <circle cx="34" cy="34" r="20" fill="#2563eb"/><text x="34" y="41" text-anchor="middle" class="num">1</text>
+    <text x="62" y="40" class="head">重建 oldMapper</text>
+    <text x="20" y="76" class="text">Snapshot DBMeta</text>
+    <text x="20" y="102" class="small">旧 key-group 范围</text>
+    <text x="20" y="126" class="small">旧 bucket 数</text>
+  </g>
+  <path d="M240 177 L284 177" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(292 102)">
+    <rect width="190" height="150" rx="14" fill="#f0fdfa" stroke="#2dd4bf" stroke-width="2"/>
+    <circle cx="34" cy="34" r="20" fill="#0f766e"/><text x="34" y="41" text-anchor="middle" class="num">2</text>
+    <text x="62" y="40" class="head">求 hash 交集</text>
+    <text x="20" y="78" class="mono">oldBucketRange</text>
+    <text x="20" y="103" class="mono">∩ targetTaskRange</text>
+    <text x="20" y="130" class="small">无交集则跳过</text>
+  </g>
+  <path d="M490 177 L534 177" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(542 102)">
+    <rect width="190" height="150" rx="14" fill="#faf5ff" stroke="#a78bfa" stroke-width="2"/>
+    <circle cx="34" cy="34" r="20" fill="#7c3aed"/><text x="34" y="41" text-anchor="middle" class="num">3</text>
+    <text x="62" y="40" class="head">映射交集两端</text>
+    <text x="20" y="78" class="mono">targetStart=Map(start)</text>
+    <text x="20" y="103" class="mono">targetEnd=Map(end)</text>
+    <text x="20" y="130" class="small">得到连续目标 slots</text>
+  </g>
+  <path d="M740 177 L784 177" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(792 102)">
+    <rect width="190" height="150" rx="14" fill="#fff7ed" stroke="#fb923c" stroke-width="2"/>
+    <circle cx="34" cy="34" r="20" fill="#ea580c"/><text x="34" y="41" text-anchor="middle" class="num">4</text>
+    <text x="62" y="40" class="head">编排 Composite</text>
+    <text x="20" y="78" class="text">拆分：DeepCopy</text>
+    <text x="20" y="103" class="text">合并：聚合 child</text>
+    <text x="20" y="130" class="small">FilePage 重绑目标 LSM</text>
+  </g>
+  <path d="M990 177 L1034 177" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <g transform="translate(1042 102)">
+    <rect width="116" height="150" rx="14" fill="#ecfdf5" stroke="#34d399" stroke-width="2"/>
+    <circle cx="34" cy="34" r="20" fill="#059669"/><text x="34" y="41" text-anchor="middle" class="num">5</text>
+    <text x="18" y="78" class="head">判断</text>
+    <text x="18" y="103" class="head">收口</text>
+    <text x="18" y="130" class="small">Simple Chain</text>
+  </g>
+  <rect x="292" y="272" width="616" height="30" rx="8" fill="#ecfdf5" stroke="#34d399"/>
+  <text x="600" y="293" text-anchor="middle" class="small">1 child 且无需强制过滤 → Direct Replace ｜ 其他情况 → Slot Filter + Compaction</text>
+
+  <rect x="88" y="314" width="1024" height="142" rx="16" fill="#fff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="120" y="348" class="head">具体例子：旧 bucket 8 拆到目标 bucket 0、1</text>
+  <rect x="120" y="374" width="360" height="46" rx="8" fill="#dbeafe" stroke="#60a5fa"/>
+  <text x="300" y="403" text-anchor="middle" class="mono">old [1073741824, 1207959551]</text>
+  <path d="M490 397 L558 397" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="570" y="366" width="210" height="62" rx="8" fill="#2563eb"/>
+  <text x="675" y="392" text-anchor="middle" class="num">target bucket 0</text>
+  <text x="675" y="414" text-anchor="middle" style="font:13px Consolas,monospace;fill:#fff">左半区</text>
+  <rect x="810" y="366" width="210" height="62" rx="8" fill="#7c3aed"/>
+  <text x="915" y="392" text-anchor="middle" class="num">target bucket 1</text>
+  <text x="915" y="414" text-anchor="middle" style="font:13px Consolas,monospace;fill:#fff">右半区</text>
+  <text x="600" y="482" text-anchor="middle" class="text">bucket 编号只是本地坐标；hash 区间才是新旧 Mapper 之间稳定的共同语言</text>
+</svg>
