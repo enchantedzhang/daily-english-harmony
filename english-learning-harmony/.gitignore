@@ -1,0 +1,12 @@
+.hvigor/
+.idea/
+oh_modules/
+node_modules/
+build/
+local.properties
+*.p12
+*.p7b
+*.cer
+signing/
+dist/
+.typecheck/

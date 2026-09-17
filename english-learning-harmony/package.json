@@ -1,0 +1,12 @@
+{
+  "name": "daily-english-harmony-checks",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare:data": "node scripts/prepare-data.mjs",
+    "test": "node --test tests/core.test.mjs tests/services.test.mjs tests/cache.test.mjs",
+    "check:resources": "node scripts/check-resources.mjs"
+  },
+  "devDependencies": { "typescript": "5.9.3" }
+}

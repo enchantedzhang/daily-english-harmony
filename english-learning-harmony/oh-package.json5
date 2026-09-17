@@ -1,0 +1,8 @@
+{
+  "name": "daily-english",
+  "version": "1.0.0",
+  "description": "个人每日英语学习日历",
+  "modelVersion": "6.0.0",
+  "dependencies": {},
+  "devDependencies": {}
+}

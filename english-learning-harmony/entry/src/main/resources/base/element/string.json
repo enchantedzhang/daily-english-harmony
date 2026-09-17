@@ -1,0 +1,8 @@
+{
+  "string": [
+    { "name": "app_name", "value": "每日英语" },
+    { "name": "module_desc", "value": "每日英语学习日历" },
+    { "name": "entry_desc", "value": "每天一点，慢慢积累" },
+    { "name": "calendar_reason", "value": "用于创建和更新每日英语专属日历中的单词提醒" }
+  ]
+}
